@@ -7,6 +7,7 @@ public abstract class RepositoryBase<TEntity, TContext> : IDisposable, IReposito
 {
     private readonly DbContext _context;
     private readonly DbSet<TEntity> _dbSet;
+    
 
     public RepositoryBase()
     {
