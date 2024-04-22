@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Models;
+using TaskManager.Models.Enums;
 using TaskManager.Models.Models;
 
 namespace TaskMaganer.Controllers
@@ -46,6 +47,7 @@ namespace TaskMaganer.Controllers
         // GET: Topic/Create
         public IActionResult Create()
         {
+            ViewBag.ColorOptions = Enum.GetValues(typeof(TopicColorOptionsEnum)).Cast<TopicColorOptionsEnum>();
             return View();
         }
 
