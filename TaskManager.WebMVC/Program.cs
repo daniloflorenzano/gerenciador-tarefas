@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Core;
 using TaskManager.Core.Data;
+using TaskManager.Core.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TaskManagerContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<TaskRepository>();
 
 var app = builder.Build();
 
