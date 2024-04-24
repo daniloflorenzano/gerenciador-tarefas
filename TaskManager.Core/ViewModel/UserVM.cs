@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using TaskManager.Core.Data;
 using TaskManager.Core.Models;
 
 namespace TaskManager.Core.ViewModel

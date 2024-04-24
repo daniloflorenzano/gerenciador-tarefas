@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TaskManager.Core;
+using TaskManager.Core.Data;
 using TaskManager.Core.Data.Repositories;
 using TaskManager.Core.Models;
 
