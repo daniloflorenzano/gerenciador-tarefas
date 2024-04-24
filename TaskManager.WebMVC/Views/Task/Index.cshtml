@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.TextContent)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                @Html.DisplayNameFor(model => model.TextContent)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedAt)
@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.TextContent)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @Html.Partial("_TaskStatus", item)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedAt)

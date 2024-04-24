@@ -1,0 +1,23 @@
+﻿@model TaskManager.Core.Models.MTask
+
+@{
+    string backgroundColor = ""; 
+    string statusText = ""; 
+    if (Model.Status == 1) 
+    {
+        backgroundColor = "red";
+        statusText = "A fazer"; 
+    }
+    else if (Model.Status == 2) 
+    {
+        backgroundColor = "orange"; 
+        statusText = "Fazendo"; 
+    }
+    else if (Model.Status == 3) 
+    {
+        backgroundColor = "green"; 
+        statusText = "Concluído"; 
+    }
+}
+
+<span style="display: inline-block; border-radius: 10%; border: 2px solid @backgroundColor; background: @backgroundColor; padding: 5px; color: white;">@statusText</span>

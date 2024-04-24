@@ -116,7 +116,21 @@ namespace TaskMaganer.Controllers
 
             try
             {
-                await _taskRepository.UpdateAsync(task);
+                var existingTask = await _taskRepository.GetByKeyAsync(task.Id);
+
+                if (existingTask == null)
+                {
+                    return NotFound();
+                }
+                
+                existingTask.Title = task.Title;
+                existingTask.TextContent = task.TextContent;
+                existingTask.UserId = task.UserId;
+                existingTask.TopicId = task.TopicId;
+                existingTask.Status = task.Status; 
+                existingTask.UpdatedAt = DateTime.Now; 
+
+                await _taskRepository.UpdateAsync(existingTask);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
