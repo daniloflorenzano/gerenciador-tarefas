@@ -4,9 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Task</h4>
+<h4>Tarefa</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,16 +20,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="TextContent" class="control-label"></label>
-                <input asp-for="TextContent" class="form-control" />
+                <textarea asp-for="TextContent" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="TextContent" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
+                <label asp-for="UserId" class="control-label">Usuário</label>
                 <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TopicId" class="control-label"></label>
+                <label asp-for="TopicId" class="control-label">Tópico</label>
                 <select asp-for="TopicId" class="form-control" asp-items="ViewBag.TopicId"></select>
                 <span asp-validation-for="TopicId" class="text-danger"></span>
             </div>
@@ -49,16 +49,6 @@
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedAt" class="control-label"></label>
-                <input asp-for="UpdatedAt" class="form-control" />
-                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -66,6 +56,5 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar a lista</a>
 </div>
-
