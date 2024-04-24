@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace TaskManager.Models.Data;
+
+namespace TaskManager.Models.Interfaces;
 
 public interface IRepositoryBase<TEntity, TContext> where TEntity : class where TContext : DbContext
 {
