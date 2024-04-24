@@ -8,5 +8,5 @@ public partial class Topic
 
     public string? Color { get; set; }
 
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+    public virtual ICollection<MTask> Tasks { get; set; } = new List<MTask>();
 }

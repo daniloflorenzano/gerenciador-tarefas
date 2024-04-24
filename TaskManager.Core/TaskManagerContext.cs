@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskManager.Core.Models;
-using Task = TaskManager.Core.Models.Task;
 
 namespace TaskManager.Core;
-
-using Task = Models.Task;
 
 public partial class TaskManagerContext : DbContext
 {
@@ -19,7 +16,7 @@ public partial class TaskManagerContext : DbContext
 
     public virtual DbSet<Comment> Comments { get; set; }
 
-    public virtual DbSet<Task> Tasks { get; set; }
+    public virtual DbSet<MTask> Tasks { get; set; }
 
     public virtual DbSet<Topic> Topics { get; set; }
 
@@ -64,7 +61,7 @@ public partial class TaskManagerContext : DbContext
                 .HasConstraintName("Comment_User_Id_fk");
         });
 
-        modelBuilder.Entity<Task>(entity =>
+        modelBuilder.Entity<MTask>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Task_pk");
 
@@ -75,11 +72,11 @@ public partial class TaskManagerContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("Created_At");
             entity.Property(e => e.TextContent)
-                .HasMaxLength(800)
+                .HasMaxLength(1000)
                 .IsUnicode(false)
                 .HasColumnName("Text_Content");
             entity.Property(e => e.Title)
-                .HasMaxLength(30)
+                .HasMaxLength(300)
                 .IsUnicode(false);
             entity.Property(e => e.TopicId).HasColumnName("Topic_Id");
             entity.Property(e => e.UpdatedAt)

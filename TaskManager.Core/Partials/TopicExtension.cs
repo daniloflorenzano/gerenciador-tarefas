@@ -8,12 +8,6 @@ namespace TaskManager.Core.Models;
 [ModelMetadataType(typeof(TopicMetadata))]
 public partial class Topic
 {
-    // public TopicColorOptionsEnum ColorAsEnum
-    // {
-    //     get => (TopicColorOptionsEnum)Enum.Parse(typeof(TopicColorOptionsEnum), Color);
-    //     set => Color = value.ToString();
-    // }
-
     public string GetColorCode()
     {
         if (!Enum.TryParse<TopicColorOptionsEnum>(Color, out var color))
