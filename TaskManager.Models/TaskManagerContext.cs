@@ -26,7 +26,6 @@ public partial class TaskManagerContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
-            //optionsBuilder.UseSqlServer("Server=localhost,1433;Database=TaskManager;User Id=sa;Password=<YourStrong@Passw0rd>;TrustServerCertificate=True");
             optionsBuilder.UseSqlServer("Data Source=localhost\\sqlexpress;Initial Catalog=TaskManager;Integrated Security=True;trustservercertificate=true");
     }
 

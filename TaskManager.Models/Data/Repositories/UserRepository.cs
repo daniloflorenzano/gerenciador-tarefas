@@ -9,6 +9,8 @@ namespace TaskManager.Models.Data.Repositories
 {
     public class UserRepository : RepositoryBase<User, TaskManagerContext>
     {
-        
+        public UserRepository(TaskManagerContext context) : base(context)
+        {
+        }
     }
 }

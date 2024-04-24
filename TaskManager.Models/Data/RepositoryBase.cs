@@ -10,9 +10,9 @@ public abstract class RepositoryBase<TEntity, TContext> : IDisposable, IReposito
     private readonly DbSet<TEntity> _dbSet;
     
 
-    public RepositoryBase()
+    public RepositoryBase(TContext context)
     {
-        _context = (TContext)Activator.CreateInstance(typeof(TContext));
+        _context = context;
         _dbSet = _context.Set<TEntity>();
     }
 

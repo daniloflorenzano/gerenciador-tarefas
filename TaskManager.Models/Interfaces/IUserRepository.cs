@@ -7,7 +7,7 @@ using TaskManager.Models.Models;
 
 namespace TaskManager.Models.Interfaces
 {
-    public interface IRepositoryUser : IRepositoryBase<User, TaskManagerContext>
+    public interface IUserRepository : IRepositoryBase<User, TaskManagerContext>
     {
     }
 }
