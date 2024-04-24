@@ -13,7 +13,7 @@ services:
     depends_on:
       - sqlserver
     volumes:
-      - ./init/create-database.sql:/tmp/create-database.sql
+      - ./init/create-database.sql:/tmp/init_database.sql
       - ./init/init.sql:/tmp/init.sql
       - ./init/init-base.sh:/tmp/init-base.sh
     command: /bin/bash ./tmp/init-base.sh
