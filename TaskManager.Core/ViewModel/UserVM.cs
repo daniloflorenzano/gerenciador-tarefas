@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TaskManager.Models.Models;
-using Task = TaskManager.Models.Models.Task;
+using TaskManager.Core.Models;
+using Models_Task = TaskManager.Core.Models.Task;
+using Task = TaskManager.Core.Models.Task;
 
-namespace TaskManager.Models.ViewModel
+namespace TaskManager.Core.ViewModel
 {
     public class UserVM
     {
@@ -23,7 +24,7 @@ namespace TaskManager.Models.ViewModel
         
         [Display(Name = "Comentários")]
         public List<Comment> comments { get; set; }
-        public List<Task> Tasks { get; set; }
+        public List<Models_Task> Tasks { get; set; }
 
         public async static Task<List<UserVM>> GetUserVMs()
         {

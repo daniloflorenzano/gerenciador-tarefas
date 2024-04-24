@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.WebMVC", "TaskManager.WebMVC\TaskManager.WebMVC.csproj", "{44C858DE-1CA5-4E41-9B33-8F0D34A1FB04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Models", "TaskManager.Models\TaskManager.Models.csproj", "{5C0AACD4-6617-4F2E-9D99-51B2458B3504}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskManager.Core", "TaskManager.Core\TaskManager.Core.csproj", "{5C0AACD4-6617-4F2E-9D99-51B2458B3504}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace TaskManager.Models.Models;
+﻿namespace TaskManager.Core.Models;
 
 public partial class Comment
 {

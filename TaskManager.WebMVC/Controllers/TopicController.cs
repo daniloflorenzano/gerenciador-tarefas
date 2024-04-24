@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using TaskManager.Models;
-using TaskManager.Models.Data.Repositories;
-using TaskManager.Models.Enums;
-using TaskManager.Models.Models;
+using TaskManager.Core;
+using TaskManager.Core.Data.Repositories;
+using TaskManager.Core.Enums;
+using TaskManager.Core.Models;
 
 namespace TaskMaganer.Controllers
 {

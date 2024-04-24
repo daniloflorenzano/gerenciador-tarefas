@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TaskManager.Models.Models;
-using Task = TaskManager.Models.Models.Task;
+using TaskManager.Core.Models;
+using Task = TaskManager.Core.Models.Task;
 
-namespace TaskManager.Models;
+namespace TaskManager.Core;
+
+using Task = Models.Task;
 
 public partial class TaskManagerContext : DbContext
 {

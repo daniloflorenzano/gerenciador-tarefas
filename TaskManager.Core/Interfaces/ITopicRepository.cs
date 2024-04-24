@@ -1,5 +1,5 @@
-using TaskManager.Models.Models;
+using TaskManager.Core.Models;
 
-namespace TaskManager.Models.Interfaces;
+namespace TaskManager.Core.Interfaces;
 
 public interface ITopicRepository : IRepositoryBase<Topic, TaskManagerContext>;

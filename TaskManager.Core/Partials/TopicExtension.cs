@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using Microsoft.AspNetCore.Mvc;
-using TaskManager.Models.Enums;
+using TaskManager.Core.Enums;
 
-namespace TaskManager.Models.Models;
+namespace TaskManager.Core.Models;
 
 [ModelMetadataType(typeof(TopicMetadata))]
 public partial class Topic

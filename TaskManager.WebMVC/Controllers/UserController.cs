@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TaskManager.Models;
-using TaskManager.Models.Models;
+using TaskManager.Core;
+using TaskManager.Core.Models;
 
 
 

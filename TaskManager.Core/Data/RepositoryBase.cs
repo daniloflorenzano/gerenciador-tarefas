@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TaskManager.Models.Interfaces;
+using TaskManager.Core.Interfaces;
 
-namespace TaskManager.Models.Data;
+namespace TaskManager.Core.Data;
 
 public abstract class RepositoryBase<TEntity, TContext> : IDisposable, IRepositoryBase<TEntity, TContext>
     where TEntity : class where TContext : DbContext

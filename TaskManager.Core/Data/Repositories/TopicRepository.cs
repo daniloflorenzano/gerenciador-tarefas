@@ -1,7 +1,7 @@
-using TaskManager.Models.Interfaces;
-using TaskManager.Models.Models;
+using TaskManager.Core.Models;
+using TaskManager.Core.Interfaces;
 
-namespace TaskManager.Models.Data.Repositories;
+namespace TaskManager.Core.Data.Repositories;
 
 public class TopicRepository : RepositoryBase<Topic, TaskManagerContext>
 {

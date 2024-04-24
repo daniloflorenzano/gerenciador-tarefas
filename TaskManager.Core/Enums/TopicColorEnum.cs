@@ -1,4 +1,4 @@
-namespace TaskManager.Models.Enums;
+namespace TaskManager.Core.Enums;
 
 public enum TopicColorOptionsEnum
 {
