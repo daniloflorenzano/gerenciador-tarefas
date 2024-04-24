@@ -7,8 +7,8 @@
     var doneTasks = Model.Where(t => t.Status == TaskStatusEnum.Done.GetHashCode());
 }
 
-<h2>Tarefas a fazer</h2>
-<table class="table">
+<h2>Tarefas A Fazer</h2>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>
@@ -28,24 +28,110 @@
     </thead>
     <tbody>
     @foreach (var item in todoTasks) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                <span style="display: inline-block; border-radius: 10%; border: 2px solid @item.Topic.GetColorCode(); background: @item.Topic.GetColorCode(); padding: 5px;">@item.Topic.Name</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                <a href="@Url.Action("Details", "Task", new { id = item.Id })" class="btn btn-primary">Detalhes</a> |
+                <a href="@Url.Action("Edit", "Task", new { id = item.Id })" class="btn btn-secondary">Editar</a> |
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h2>Tarefas Em Andamento</h2>
+<table class="table table-striped">
+    <thead>
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
-        </td>
-        <td>
-            <span style="display: inline-block; border-radius: 10%; border: 2px solid @item.Topic.GetColorCode(); background: @item.Topic.GetColorCode(); padding: 5px;">@item.Topic.Name</span>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Name)
-        </td>
-        <td>
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-        </td>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Topic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th></th>
     </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in inProgressTasks) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                <span style="display: inline-block; border-radius: 10%; border: 2px solid @item.Topic.GetColorCode(); background: @item.Topic.GetColorCode(); padding: 5px;">@item.Topic.Name</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                <a href="@Url.Action("Details", "Task", new { id = item.Id })" class="btn btn-primary">Detalhes</a> |
+                <a href="@Url.Action("Edit", "Task", new { id = item.Id })" class="btn btn-secondary">Editar</a> |
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h2>Tarefas Em Concluídas</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Topic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in doneTasks) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                <span style="display: inline-block; border-radius: 10%; border: 2px solid @item.Topic.GetColorCode(); background: @item.Topic.GetColorCode(); padding: 5px;">@item.Topic.Name</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Name)
+            </td>
+            <td>
+                <a href="@Url.Action("Details", "Task", new { id = item.Id })" class="btn btn-primary">Detalhes</a> |
+                <a href="@Url.Action("Edit", "Task", new { id = item.Id })" class="btn btn-secondary">Editar</a> |
+            </td>
+        </tr>
     }
     </tbody>
 </table>
