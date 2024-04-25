@@ -1,11 +1,13 @@
-﻿namespace TaskManager.Core.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TaskManager.Core.Models;
 
 public partial class User
 {
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;
-
+    
     public DateTime CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }

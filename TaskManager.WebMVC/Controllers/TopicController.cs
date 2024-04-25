@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Core;
 using TaskManager.Core.Data.Repositories;
@@ -6,7 +7,7 @@ using TaskManager.Core.Models;
 
 namespace TaskMaganer.Controllers
 {
-    public class TopicController : Controller
+    public class TopicController : DefaultController
     {
         private readonly TopicRepository _topicRepository;
 
@@ -16,6 +17,7 @@ namespace TaskMaganer.Controllers
         }
 
         // GET: Topic
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _topicRepository.ListAllAsync());
@@ -35,6 +37,7 @@ namespace TaskMaganer.Controllers
         }
 
         // GET: Topic/Create
+        
         public IActionResult Create()
         {
             ViewBag.ColorOptions = Enum.GetValues(typeof(TopicColorOptionsEnum)).Cast<TopicColorOptionsEnum>();
@@ -58,6 +61,7 @@ namespace TaskMaganer.Controllers
         }
 
         // GET: Topic/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Core;
@@ -8,8 +9,9 @@ using TaskManager.Core.Models;
 
 namespace TaskMaganer.Controllers
 {
-    public class UserController : Controller
+    public class UserController : DefaultController
     {
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var db = new TaskManagerContext();

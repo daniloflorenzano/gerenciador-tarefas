@@ -1,10 +1,11 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskMaganer.Models;
 
 namespace TaskMaganer.Controllers;
 
-public class HomeController : Controller
+public class HomeController : DefaultController
 {
     private readonly ILogger<HomeController> _logger;
 
@@ -13,11 +14,13 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [AllowAnonymous]
     public IActionResult Index()
     {
         return View();
     }
 
+    [AllowAnonymous]
     public IActionResult Privacy()
     {
         return View();
