@@ -1,0 +1,19 @@
+# Referencia
+# https://renatogroffe.medium.com/sql-server-docker-compose-criando-rapidamente-ambientes-e-populando-bases-para-testes-13d108d8cdb2
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "SqlServer2022!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+  mssqltools:
+    image: mcr.microsoft.com/mssql-tools
+    depends_on:
+      - sqlserver
+    volumes:
+      - ./init/create-database.sql:/tmp/init_database.sql
+      - ./init/init.sql:/tmp/init.sql
+      - ./init/init-base.sh:/tmp/init-base.sh
+    command: /bin/bash ./tmp/init-base.sh

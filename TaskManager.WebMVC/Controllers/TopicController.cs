@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Core;
+using TaskManager.Core.Data;
 using TaskManager.Core.Data.Repositories;
 using TaskManager.Core.Enums;
 using TaskManager.Core.Models;

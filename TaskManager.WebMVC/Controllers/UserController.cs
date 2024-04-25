@@ -1,22 +1,25 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TaskManager.Core;
+using TaskManager.Core.Data;
+using TaskManager.Core.Data.Repositories;
 using TaskManager.Core.Models;
-
-
 
 namespace TaskMaganer.Controllers
 {
     public class UserController : DefaultController
     {
-        [AllowAnonymous]
+        private readonly UserRepository _userRepository;
+
+        public UserController(TaskManagerContext context)
+        {
+            _userRepository = new UserRepository(context);
+        }
+        
         public async Task<IActionResult> Index()
         {
-            var db = new TaskManagerContext();
-
-            return View(await db.Users.ToListAsync());
+            return View(await _userRepository.ListAllAsync());
         }
 
         public IActionResult Create()
@@ -27,11 +30,9 @@ namespace TaskMaganer.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(User user)
         {
-            var db = new TaskManagerContext();
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Added;
-                await db.SaveChangesAsync();
+                await _userRepository.CreateAsync(user);
                 ViewData["Mensagem"] = "Dados salvos com sucesso.";
             }
             else
@@ -43,19 +44,16 @@ namespace TaskMaganer.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var db = new TaskManagerContext();
-            var user = await db.Users.FindAsync(id);
+            var user = await _userRepository.GetByKeyAsync(id);
             return View(user);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(User user)
         {
-            var db = new TaskManagerContext();
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await _userRepository.UpdateAsync(user);
                 ViewData["Mensagem"] = "Dados alterados com sucesso.";
             }
             else
@@ -67,24 +65,20 @@ namespace TaskMaganer.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var db = new TaskManagerContext();
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await _userRepository.GetByKeyAsync(id);
             return View(user);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            var db = new TaskManagerContext();
-            var user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await _userRepository.GetByKeyAsync(id);
             return View(user);
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(User user)
         {
-            var db = new TaskManagerContext();
-            db.Entry(user).State = EntityState.Deleted;
-            await db.SaveChangesAsync();
+            await _userRepository.DeleteAsync(user);
             return RedirectToAction("Index");
         }
 

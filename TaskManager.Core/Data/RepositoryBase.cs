@@ -6,8 +6,8 @@ namespace TaskManager.Core.Data;
 public abstract class RepositoryBase<TEntity, TContext> : IDisposable, IRepositoryBase<TEntity, TContext>
     where TEntity : class where TContext : DbContext
 {
-    private readonly DbContext _context;
-    private readonly DbSet<TEntity> _dbSet;
+    protected readonly TContext _context;
+    protected readonly DbSet<TEntity> _dbSet;
     
 
     public RepositoryBase(TContext context)
@@ -18,30 +18,30 @@ public abstract class RepositoryBase<TEntity, TContext> : IDisposable, IReposito
 
     public void Dispose() => _context.Dispose();
 
-    public async Task UpdateAsync(TEntity entity)
+    public virtual async Task UpdateAsync(TEntity entity)
     {
         _context.Entry(entity).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(TEntity entity)
+    public virtual async Task DeleteAsync(TEntity entity)
     {
         _context.Entry(entity).State = EntityState.Deleted;
         await _context.SaveChangesAsync();
     }
 
-    public async Task CreateAsync(TEntity entity)
+    public virtual async Task CreateAsync(TEntity entity)
     {
         _dbSet.Add(entity);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<TEntity?> GetByKeyAsync(params object[] keyValues)
+    public virtual async Task<TEntity?> GetByKeyAsync(params object[] keyValues)
     {
         return await _dbSet.FindAsync(keyValues);
     }
 
-    public async Task<TEntity?> GetByKeyAsNoTrackingAsync(params object[] keyValues)
+    public virtual async Task<TEntity?> GetByKeyAsNoTrackingAsync(params object[] keyValues)
     {
         var obj = await _dbSet.FindAsync(keyValues);
 
@@ -53,12 +53,12 @@ public abstract class RepositoryBase<TEntity, TContext> : IDisposable, IReposito
         return obj;
     }
 
-    public async Task<List<TEntity>> ListAllAsync()
+    public virtual async Task<List<TEntity>> ListAllAsync()
     {
         return await _dbSet.ToListAsync();
     }
 
-    public async Task<List<TEntity>> ListAllAsNoTrackingAsync()
+    public virtual async Task<List<TEntity>> ListAllAsNoTrackingAsync()
     {
         return await _dbSet.AsNoTracking().ToListAsync();
     }

@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using TaskManager.Core;
 using Microsoft.AspNetCore.Identity;
 using TaskMaganer.Areas.Identity.Data;
+using TaskManager.Core.Data;
+using TaskManager.Core.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,9 @@ var connectionString = builder.Configuration.GetConnectionString("IdentityContex
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TaskManagerContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionString));
+
+
+builder.Services.AddScoped<TaskRepository>();
 
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

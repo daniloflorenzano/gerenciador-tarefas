@@ -1,13 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TaskManager.Core.Data;
 using TaskManager.Core.Models;
-using Models_Task = TaskManager.Core.Models.Task;
-using Task = TaskManager.Core.Models.Task;
 
 namespace TaskManager.Core.ViewModel
 {
@@ -24,7 +18,7 @@ namespace TaskManager.Core.ViewModel
         
         [Display(Name = "Comentários")]
         public List<Comment> comments { get; set; }
-        public List<Models_Task> Tasks { get; set; }
+        public List<MTask> Tasks { get; set; }
 
         public async static Task<List<UserVM>> GetUserVMs()
         {

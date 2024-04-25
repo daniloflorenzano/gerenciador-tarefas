@@ -14,5 +14,5 @@ public partial class User
 
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+    public virtual ICollection<MTask> Tasks { get; set; } = new List<MTask>();
 }

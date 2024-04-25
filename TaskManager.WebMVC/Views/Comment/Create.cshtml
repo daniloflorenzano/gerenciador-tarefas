@@ -1,0 +1,42 @@
+@model TaskManager.Core.Models.Comment
+
+@{
+    ViewData["Title"] = "Create";
+    var taskId = int.Parse(ViewData["TaskId"] as string);
+}
+
+<h1>Create</h1>
+<h4>Comment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TextContent" class="control-label"></label>
+                <input asp-for="TextContent" class="form-control"/>
+                <span asp-validation-for="TextContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+            </div>
+            <div style="display: none" class="form-group">
+                <label asp-for="TaskId" class="control-label"></label>
+                <input asp-for="TaskId" class="form-control">@taskId</input>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreviousCommentId" class="control-label"></label>
+                <select asp-for="PreviousCommentId" class="form-control" asp-items="ViewBag.PreviousCommentId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
