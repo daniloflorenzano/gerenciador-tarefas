@@ -12,6 +12,7 @@ builder.Services.AddDbContext<TaskManagerContext>(options => options.UseSqlServe
 
 builder.Services.AddScoped<TaskRepository>();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -22,6 +22,7 @@ public class TaskRepository : RepositoryBase<MTask, TaskManagerContext>
         return await _context.Tasks
             .Include(x => x.Topic)
             .Include(x => x.User)
+            .Include(x => x.Comments)
             .FirstOrDefaultAsync(x => x.Id == (int)keyValues[0]);
     }
 }

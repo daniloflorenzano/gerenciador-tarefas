@@ -21,4 +21,6 @@ public partial class MTask
     public virtual Topic Topic { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
+
+    public virtual List<Comment> Comments { get; set; } = new();
 }

@@ -50,6 +50,11 @@ public partial class TaskManagerContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
             entity.Property(e => e.UserId).HasColumnName("User_Id");
+            entity.Property(e => e.TaskId).HasColumnName("Task_Id");
+
+            entity.HasOne(d => d.Task).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.TaskId)
+                .HasConstraintName("Comment_Task_Id_fk");
 
             entity.HasOne(d => d.PreviousComment).WithMany(p => p.InversePreviousComment)
                 .HasForeignKey(d => d.PreviousCommentId)

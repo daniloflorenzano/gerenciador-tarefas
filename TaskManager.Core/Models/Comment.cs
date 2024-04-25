@@ -11,6 +11,8 @@ public partial class Comment
     public DateTime UpdatedAt { get; set; }
 
     public int UserId { get; set; }
+    
+    public int TaskId { get; set; }
 
     public int? PreviousCommentId { get; set; }
 
@@ -19,4 +21,7 @@ public partial class Comment
     public virtual Comment? PreviousComment { get; set; }
 
     public virtual User User { get; set; } = null!;
+    
+    public virtual MTask Task { get; set; } = null!;
+
 }
