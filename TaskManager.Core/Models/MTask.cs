@@ -3,6 +3,10 @@
 public partial class MTask
 {
     public int Id { get; set; }
+    
+    public int? MainTaskId { get; set; }
+    
+    public List<MTask?> SubTasks { get; set; } = new();
 
     public string Title { get; set; } = null!;
 
@@ -23,4 +27,6 @@ public partial class MTask
     public virtual User User { get; set; } = null!;
 
     public virtual List<Comment> Comments { get; set; } = new();
+    
+    public virtual MTask? MainTask { get; set; }
 }

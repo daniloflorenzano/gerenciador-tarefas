@@ -88,11 +88,16 @@ public partial class TaskManagerContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("Updated_At");
             entity.Property(e => e.UserId).HasColumnName("User_Id");
+            entity.Property(e => e.MainTaskId).HasColumnName("Main_Task_Id");
 
             entity.HasOne(d => d.Topic).WithMany(p => p.Tasks)
                 .HasForeignKey(d => d.TopicId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Task_Topic_Id_fk");
+            
+            entity.HasOne(d => d.MainTask).WithMany(p => p.SubTasks)
+                .HasForeignKey(d => d.MainTaskId)
+                .HasConstraintName("Comment_Comment_Id_fk");
 
             entity.HasOne(d => d.User).WithMany(p => p.Tasks)
                 .HasForeignKey(d => d.UserId)
