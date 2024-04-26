@@ -16,7 +16,7 @@ namespace TaskMaganer.Controllers
         {
             _userRepository = new UserRepository(context);
         }
-        
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _userRepository.ListAllAsync());

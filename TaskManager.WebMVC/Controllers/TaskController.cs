@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TaskManager.Core;
@@ -7,7 +8,7 @@ using TaskManager.Core.Models;
 
 namespace TaskMaganer.Controllers
 {
-    public class TaskController : Controller
+    public class TaskController : DefaultController
     {
         private readonly TaskRepository _taskRepository;
         private readonly TopicRepository _topicRepository;
@@ -21,6 +22,7 @@ namespace TaskMaganer.Controllers
         }
 
         // GET: Task
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _taskRepository.ListAllAsync());
