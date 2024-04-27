@@ -10,3 +10,12 @@
 </div>
 
 @await Html.PartialAsync("_TaskTables", await TaskRepository.ListAllAsync())
+
+@section Scripts {
+
+    <script>
+        ConfiguraDataTable("table_todo");
+        ConfiguraDataTable("table_doing");
+        ConfiguraDataTable("table_done");
+    </script>
+}
