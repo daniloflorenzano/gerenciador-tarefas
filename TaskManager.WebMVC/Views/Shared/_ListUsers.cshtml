@@ -1,0 +1,26 @@
+﻿@using TaskManager.Core.Models
+@model IEnumerable<User>
+
+<h2>Lista de Usuários</h2>
+
+<table id="tabela" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Criado em</th>
+            <th>Alterado em</th>            
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var userVm in Model)
+        {
+            <tr>
+                <td>@userVm.Name</td>
+                <td>@userVm.CreatedAt</td>
+                <td>@userVm.UpdatedAt</td>                
+            </tr>
+
+        }
+    </tbody>
+</table>

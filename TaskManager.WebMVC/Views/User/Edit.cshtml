@@ -42,4 +42,10 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var mensagem = "@ViewData["Mensagem"]";
+        var mensagemErro = "@ViewData["MensagemErro"]";
+    </script>
 }
+

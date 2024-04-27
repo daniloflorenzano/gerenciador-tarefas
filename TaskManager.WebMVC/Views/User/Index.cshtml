@@ -10,7 +10,16 @@
 <p>
     <a asp-action="Create">Criar Novo</a>
 </p>
-<table class="table">
+
+<div>
+    @await Html.PartialAsync("_ListUsers", Model)
+</div>
+@section Scripts {
+
+    <script>
+        ConfiguraDataTable("tabela");
+    </script>
+@* <table class="table">
     <thead>
         <tr>
             <th>
@@ -53,3 +62,9 @@
 }
     </tbody>
 </table>
+@section Scripts {
+
+    <script>
+        ConfiguraDataTable("tabela");
+    </script> *@
+}
