@@ -5,6 +5,7 @@ using TaskManager.Core;
 using TaskManager.Core.Data;
 using TaskManager.Core.Data.Repositories;
 using TaskManager.Core.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace TaskMaganer.Controllers
 {
@@ -13,12 +14,14 @@ namespace TaskMaganer.Controllers
         private readonly TaskRepository _taskRepository;
         private readonly TopicRepository _topicRepository;
         private readonly UserRepository _userRepository;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public TaskController(TaskManagerContext context)
+        public TaskController(TaskManagerContext context, UserManager<IdentityUser> userManager)
         {
             _taskRepository = new TaskRepository(context);
             _topicRepository = new TopicRepository(context);
             _userRepository = new UserRepository(context);
+            _userManager = userManager;
         }
 
         // GET: Task
@@ -32,11 +35,19 @@ namespace TaskMaganer.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
+            {
                 return NotFound();
+            }
 
             var task = await _taskRepository.GetByKeyAsync(id);
             if (task == null)
+            {
                 return NotFound();
+            }
+
+            // Get current user
+            var user = await _userManager.GetUserAsync(User);
+            
 
             return View(task);
         }

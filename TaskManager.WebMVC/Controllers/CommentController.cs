@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -14,16 +15,19 @@ namespace TaskMaganer.Controllers
     public class CommentController : Controller
     {
         private readonly TaskManagerContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CommentController(TaskManagerContext context)
+        public CommentController(TaskManagerContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Comment
         public async Task<IActionResult> Index()
         {
-            var taskManagerContext = _context.Comments.Include(c => c.PreviousComment).Include(c => c.Task).Include(c => c.User);
+            var taskManagerContext = _context.Comments.Include(c => c.PreviousComment).Include(c => c.Task)
+                .Include(c => c.User);
             return View(await taskManagerContext.ToListAsync());
         }
 
@@ -52,7 +56,7 @@ namespace TaskMaganer.Controllers
         public IActionResult Create(int taskId)
         {
             ViewData["PreviousCommentId"] = new SelectList(_context.Comments, "Id", "TextContent");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_userManager.Users, "Id", "Name");
             ViewData["TaskId"] = taskId.ToString();
             return View();
         }
@@ -62,15 +66,33 @@ namespace TaskMaganer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TextContent,CreatedAt,UpdatedAt,UserId,TaskId,PreviousCommentId")] Comment comment)
+        public async Task<IActionResult> Create(
+            [Bind("Id,TextContent,CreatedAt,UpdatedAt,UserId,TaskId,PreviousCommentId")] Comment comment)
         {
-            if (ModelState.IsValid)
+            var novoUsuario = _userManager.GetUserAsync(User);
+
+            var user = new User()
             {
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["PreviousCommentId"] = new SelectList(_context.Comments, "Id", "TextContent", comment.PreviousCommentId);
+                Name = User.Identity.Name,
+                Id = 2
+            };
+            var commenta = new Comment()
+            {
+                User = user,
+                UserId = user.Id,
+                TextContent = comment.TextContent,
+                CreatedAt = DateTime.Now,
+                PreviousCommentId = comment.PreviousCommentId,
+                TaskId = comment.TaskId
+
+            };
+            //novoUsuario = User.Identity.Name;
+            _context.Comments.Add(commenta);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+            ViewData["PreviousCommentId"] =
+                new SelectList(_context.Comments, "Id", "TextContent", comment.PreviousCommentId);
             ViewData["TaskId"] = new SelectList(_context.Tasks, "Id", "TextContent", comment.TaskId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name", comment.UserId);
             return View(comment);
@@ -89,7 +111,9 @@ namespace TaskMaganer.Controllers
             {
                 return NotFound();
             }
-            ViewData["PreviousCommentId"] = new SelectList(_context.Comments, "Id", "TextContent", comment.PreviousCommentId);
+
+            ViewData["PreviousCommentId"] =
+                new SelectList(_context.Comments, "Id", "TextContent", comment.PreviousCommentId);
             ViewData["TaskId"] = new SelectList(_context.Tasks, "Id", "TextContent", comment.TaskId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name", comment.UserId);
             return View(comment);
@@ -100,7 +124,8 @@ namespace TaskMaganer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TextContent,CreatedAt,UpdatedAt,UserId,TaskId,PreviousCommentId")] Comment comment)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("Id,TextContent,CreatedAt,UpdatedAt,UserId,TaskId,PreviousCommentId")] Comment comment)
         {
             if (id != comment.Id)
             {
@@ -125,9 +150,12 @@ namespace TaskMaganer.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PreviousCommentId"] = new SelectList(_context.Comments, "Id", "TextContent", comment.PreviousCommentId);
+
+            ViewData["PreviousCommentId"] =
+                new SelectList(_context.Comments, "Id", "TextContent", comment.PreviousCommentId);
             ViewData["TaskId"] = new SelectList(_context.Tasks, "Id", "TextContent", comment.TaskId);
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name", comment.UserId);
             return View(comment);

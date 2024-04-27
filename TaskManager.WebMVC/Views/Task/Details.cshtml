@@ -1,13 +1,17 @@
 @using TaskManager.Core.Models
 @model TaskManager.Core.Models.MTask
+@inject UserManager<IdentityUser> UserManager
+@using Microsoft.AspNetCore.Identity
 
 
 @{
     ViewData["Title"] = "Details";
+
     void AddCommentToTask(Comment comment)
     {
-        
     }
+
+    var user = await UserManager.GetUserAsync(User);
 }
 
 <h1>Detalhes</h1>
@@ -37,7 +41,7 @@
 
         <h4>Subtarefas</h4>
         <hr/>
-        @foreach(var subTask in Model.SubTasks)
+        @foreach (var subTask in Model.SubTasks)
         {
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => subTask.Title)
@@ -52,10 +56,9 @@
                 @Html.DisplayFor(model => subTask.TextContent)
             </dd>
             <hr/>
-            
         }
-        
-        
+
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedAt)
         </dt>
@@ -83,28 +86,32 @@
         <div>
             <h4>Comentários</h4>
             <hr>
-            
+
             @{
                 if (Model.Comments.Count == 0)
                     Model.Comments.Add(new Comment());
-                
+
                 <div class="form-group">
                     <div class="form-group">
                         <label asp-for="Comments.First().TextContent" class="control-label"></label>
-                        <textarea asp-for="Comments.First().TextContent" class="form-control" rows="5"></textarea>
+
                         <span asp-validation-for="Comments.First().TextContent" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="UserId" class="control-label"></label>
-                        <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                    </div>
+                    @if (user != null)
+                    {
+                        @user.UserName // or another relevant user property
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => model.User.Name) // Fallback if user not found
+                    }
                 </div>
             }
-            
+
 
             @foreach (var comment in Model.Comments)
             {
-                if(!string.IsNullOrEmpty(comment.TextContent))
+                if (!string.IsNullOrEmpty(comment.TextContent))
                     @Html.Partial("_CommentDetails", comment)
             }
         </div>

@@ -1,8 +1,15 @@
+@using Microsoft.AspNetCore.Identity
 @model TaskManager.Core.Models.Comment
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Create";
-    var taskId = int.Parse(ViewData["TaskId"] as string);
+    
+    var taskId = 1;
+    var user = await UserManager.GetUserAsync(User);
+    //var taskIdString = ViewData["TaskId"] as string;
+    //var taskId = taskIdString != null ? int.Parse(taskIdString) : 0;
+    
 }
 
 <h1>Create</h1>
@@ -13,13 +20,22 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TextContent" class="control-label"></label>
+                <label>Comentário</label>
                 <input asp-for="TextContent" class="form-control"/>
                 <span asp-validation-for="TextContent" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <label>Email</label>
+                <select asp-for="User.Name" class="form-control">
+                    @if (user.UserName != null)
+                    {
+                        <option value="@user.UserName">@user.UserName</option>
+                    }
+                    else
+                    {
+                        <option value="">Usuário não disponível</option>
+                    }
+                </select>
             </div>
             <div style="display: none" class="form-group">
                 <label asp-for="TaskId" class="control-label"></label>
