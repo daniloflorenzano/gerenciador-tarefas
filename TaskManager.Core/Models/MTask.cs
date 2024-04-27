@@ -6,7 +6,7 @@ public partial class MTask
     
     public int? MainTaskId { get; set; }
     
-    public List<MTask?> SubTasks { get; set; } = new();
+    public List<MTask>? SubTasks { get; set; } = new();
 
     public string Title { get; set; } = null!;
 

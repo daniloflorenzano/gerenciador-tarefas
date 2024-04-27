@@ -34,6 +34,28 @@
         <dd class="col-sm-10">
             @Model.GetStatusNameByCode(Model.Status)
         </dd>
+
+        <h4>Subtarefas</h4>
+        <hr/>
+        @foreach(var subTask in Model.SubTasks)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => subTask.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => subTask.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => subTask.TextContent)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => subTask.TextContent)
+            </dd>
+            <hr/>
+            
+        }
+        
+        
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CreatedAt)
         </dt>
@@ -61,21 +83,29 @@
         <div>
             <h4>Comentários</h4>
             <hr>
-            <div class="form-group">
+            
+            @{
+                if (Model.Comments.Count == 0)
+                    Model.Comments.Add(new Comment());
+                
                 <div class="form-group">
-                    <label asp-for="Comments.First().TextContent" class="control-label"></label>
-                    <textarea asp-for="Comments.First().TextContent" class="form-control" rows="5"></textarea>
-                    <span asp-validation-for="Comments.First().TextContent" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Comments.First().TextContent" class="control-label"></label>
+                        <textarea asp-for="Comments.First().TextContent" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Comments.First().TextContent" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserId" class="control-label"></label>
+                        <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="UserId" class="control-label"></label>
-                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                </div>
-            </div>
+            }
+            
 
             @foreach (var comment in Model.Comments)
             {
-                @Html.Partial("_CommentDetails", comment)
+                if(!string.IsNullOrEmpty(comment.TextContent))
+                    @Html.Partial("_CommentDetails", comment)
             }
         </div>
 

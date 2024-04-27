@@ -104,6 +104,9 @@
             table.append(`<tr> <td> <input type="hidden" value="${titulo}" name="SubTasks[${lineCount}].Title" /> ${titulo}</td>` +
                          `<td> <input type="hidden" value="${conteudo}" name="SubTasks[${lineCount}].TextContent" /> ${conteudo}</td></tr>`
                         );
+                        
+            $('#sub-title').val('');
+            $('#sub-text-content').val('');
         }
     </script>
 }

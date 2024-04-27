@@ -19,10 +19,16 @@ public class TaskRepository : RepositoryBase<MTask, TaskManagerContext>
     
     public override async Task<MTask?> GetByKeyAsync(params object[] keyValues)
     {
-        return await _context.Tasks
+        var tasks = await _context.Tasks
             .Include(x => x.Topic)
             .Include(x => x.User)
             .Include(x => x.Comments)
             .FirstOrDefaultAsync(x => x.Id == (int)keyValues[0]);
+
+        if (tasks is null)
+            return tasks;
+        
+        tasks.SubTasks = await _context.Tasks.Where(st => st.MainTaskId == tasks.Id).ToListAsync();
+        return tasks;
     }
 }
