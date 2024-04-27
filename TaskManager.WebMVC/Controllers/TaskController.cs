@@ -54,9 +54,7 @@ namespace TaskMaganer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(
-            [Bind("Id,Title,TextContent,UserId,TopicId,Status,CreatedAt,UpdatedAt")]
-            MTask task)
+        public async Task<IActionResult> Create(MTask task)
         {
             var user = await _userRepository.GetByKeyAsync(task.UserId);
             var topic = await _topicRepository.GetByKeyAsync(task.TopicId);
@@ -66,6 +64,18 @@ namespace TaskMaganer.Controllers
 
             task.User = user;
             task.Topic = topic;
+            
+            foreach (var taskSubTask in task.SubTasks)
+            {
+                if (taskSubTask is null)
+                    continue;
+                
+                taskSubTask.MainTask = task;
+                taskSubTask.UserId = task.UserId;
+                taskSubTask.User = user;
+                taskSubTask.TopicId = task.TopicId;
+                taskSubTask.Topic = topic;
+            }
 
             try
             {

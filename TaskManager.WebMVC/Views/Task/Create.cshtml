@@ -41,45 +41,44 @@
             </div>
             <br/>
 
+            <div>
+                <h4>Subtarefas</h4>
 
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Título</label>
+                    <input class="form-control" id="sub-title"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Descrição</label>
+                    <textarea id="sub-text-content" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="TextContent" class="text-danger"></span>
+                </div>
+                <br/>
+
+                <button type="button" class="btn btn-secondary" onclick="Adicionar()"><i class="fa fa-plus"></i>Adicionar subtarefa</button>
+
+            </div>
+
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Conteudo</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
         
-        <br/>
-        
-        <div>
-            <h4>Subtarefas</h4>
-
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label class="control-label">Título</label>
-                <input class="form-control" id="sub-title"/>
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Descrição</label>
-                <textarea id="sub-text-content" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="TextContent" class="text-danger"></span>
-            </div>
-            <br/>
-
-            <button class="btn btn-secondary" onclick="Adicionar()"><i class="fa fa-plus"></i>Adicionar subtarefa</button>
-
-        </div>
-
-        <div>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Titulo</th>
-                    <th>Conteudo</th>
-                </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
     </div>
 </div>
 
@@ -95,12 +94,16 @@
             var conteudo = $('#sub-text-content').val();
             var table = $('table tbody');
             
-            if (titulo == '' || conteudo == '') {
+            var lineCount = table.find('tr').length;
+            
+            if (titulo === '' || conteudo === '') {
                 alert('Preencha todos os campos');
                 return;
             }
             
-            table.append('<tr><td>' + titulo + '</td><td>' + conteudo + '</td></tr>');
+            table.append(`<tr> <td> <input type="hidden" value="${titulo}" name="SubTasks[${lineCount}].Title" /> ${titulo}</td>` +
+                         `<td> <input type="hidden" value="${conteudo}" name="SubTasks[${lineCount}].TextContent" /> ${conteudo}</td></tr>`
+                        );
         }
     </script>
 }
