@@ -4,17 +4,17 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Criar</h1>
+<h1 xmlns="http://www.w3.org/1999/html">Criar</h1>
 
 <h4>Tarefas</h4>
-<hr />
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
+                <input asp-for="Title" class="form-control"/>
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,11 +24,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TopicId" class="control-label"></label>
-                <select asp-for="TopicId" class ="form-control" asp-items="ViewBag.TopicId"></select>
+                <select asp-for="TopicId" class="form-control" asp-items="ViewBag.TopicId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label">Status</label>
@@ -39,10 +39,47 @@
                 </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
+            <br/>
+
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
         </form>
+        
+        <br/>
+        
+        <div>
+            <h4>Subtarefas</h4>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Título</label>
+                <input class="form-control" id="sub-title"/>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Descrição</label>
+                <textarea id="sub-text-content" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="TextContent" class="text-danger"></span>
+            </div>
+            <br/>
+
+            <button class="btn btn-secondary" onclick="Adicionar()"><i class="fa fa-plus"></i>Adicionar subtarefa</button>
+
+        </div>
+
+        <div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Conteudo</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -50,3 +87,20 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts
+{
+    <script>
+        function Adicionar() {
+            var titulo = $('#sub-title').val();
+            var conteudo = $('#sub-text-content').val();
+            var table = $('table tbody');
+            
+            if (titulo == '' || conteudo == '') {
+                alert('Preencha todos os campos');
+                return;
+            }
+            
+            table.append('<tr><td>' + titulo + '</td><td>' + conteudo + '</td></tr>');
+        }
+    </script>
+}
