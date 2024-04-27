@@ -10,7 +10,7 @@
 <p>
     <a asp-action="Create">Criar novo</a>
 </p>
-<table class="table">
+<table id ="table"class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -40,3 +40,9 @@
 }
     </tbody>
 </table>
+@section Scripts {
+
+    <script>
+        ConfiguraDataTable("table");
+    </script>
+}
