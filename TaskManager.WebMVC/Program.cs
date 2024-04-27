@@ -21,6 +21,8 @@ builder.Services.AddScoped<TaskRepository>();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<IdentityContext>();
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
